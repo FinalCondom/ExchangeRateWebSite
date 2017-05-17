@@ -15,18 +15,22 @@ namespace ExchangeRateMVC.Controllers
         {
             AccessWebAPI access = new AccessWebAPI();
 
-            return View(access.getWebAPICurrencies());
+            Currency test = new Currency();
+
+            access.deleteCurrency(1);
+
+            return View(access.getCurrencies());
         }
         //POST: Currency
 
-        [HttpPost]
-        public ActionResult Add(Currency c)
-        {
-            AccessWebAPI access = new AccessWebAPI();
+        //[HttpPost]
+        //public ActionResult Add(Currency c)
+        //{
+        //    AccessWebAPI access = new AccessWebAPI();
 
-            access.addCurrency(c);
+        //    access.insertCurrency(c);
 
-            return View(access.getWebAPICurrencies());
-        }
+        //    return View(access.getCurrencies());
+        //}
     }
 }

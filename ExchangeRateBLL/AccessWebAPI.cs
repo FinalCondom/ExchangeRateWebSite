@@ -11,9 +11,10 @@ namespace ExchangeRateBLL
 {
     public class AccessWebAPI
     {
-        public List<Currency> getWebAPICurrencies()
+        private string uri;
+        public List<Currency> getCurrencies()
         {
-            string uri = "http://localhost:57770/api/currency";
+            uri = "http://localhost:57770/api/currency/";
             List<Currency> res = new List<Currency>();
             //We use an using to be sure the connection will be closed at the end of the brackets
             //we can also open the connection on the beggining and close it at the end
@@ -25,35 +26,35 @@ namespace ExchangeRateBLL
             return res;
         }
 
-        public void addCurrency(Currency c)
+        public Boolean insertCurrency(Currency c)
         {
-            string uri = "http://localhost:57770/api/currency";
-
+            uri = "http://localhost:57770/api/currency/";
             using (HttpClient client = new HttpClient())
             {
-                HttpContent request = new StringContent(JsonConvert.SerializeObject(c));
-                Task<HttpResponseMessage> response = client.PostAsync(uri, request);
-            }
-
-        }
-        public void updateCurrency(Currency c)
-        {
-            string uri = "http://localhost:57770/api/currency";
-
-            using (HttpClient client = new HttpClient())
-            {
-                HttpContent request = new StringContent(JsonConvert.SerializeObject(c));
-                Task<HttpResponseMessage> response = client.PutAsync(uri, request);
+                string pro = JsonConvert.SerializeObject(c);
+                StringContent frame = new StringContent(pro, Encoding.UTF8, "Application/json");
+                Task<HttpResponseMessage> response = client.PostAsync(uri, frame);
+                return response.Result.IsSuccessStatusCode;
             }
         }
-        public void deleteCurrency(int id)
+        public Boolean updateCurrency(Currency c)
         {
-            string uri = "http://localhost:57770/api/currency";
-
+            uri = "http://localhost:57770/api/currency/";
             using (HttpClient client = new HttpClient())
             {
-                HttpContent request = new StringContent(JsonConvert.SerializeObject(id));
-                Task<HttpResponseMessage> response = client.DeleteAsync(uri, request);
+                string pro = JsonConvert.SerializeObject(c);
+                StringContent frame = new StringContent(pro, Encoding.UTF8, "Application/json");
+                Task<HttpResponseMessage> response = client.PutAsync(uri, frame);
+                return response.Result.IsSuccessStatusCode;
+            }
+        }
+        public Boolean deleteCurrency(int id)
+        {
+            uri = "http://localhost:57770/api/currency/" + id;
+            using (HttpClient client = new HttpClient())
+            {
+                Task<HttpResponseMessage> response = client.DeleteAsync(uri);
+                return response.Result.IsSuccessStatusCode;
             }
         }
     }
