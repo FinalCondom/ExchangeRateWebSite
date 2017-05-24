@@ -11,10 +11,9 @@ namespace ExchangeRateBLL
 {
     public class AccessWebAPI
     {
-        private string uri;
+        private static string uri = "http://localhost:57770/api/currenciesEF/";
         public List<Currency> getCurrencies()
         {
-            uri = "http://localhost:57770/api/currency/";
             List<Currency> res = new List<Currency>();
             //We use an using to be sure the connection will be closed at the end of the brackets
             //we can also open the connection on the beggining and close it at the end
@@ -28,7 +27,6 @@ namespace ExchangeRateBLL
 
         public Boolean insertCurrency(Currency c)
         {
-            uri = "http://localhost:57770/api/currency/";
             using (HttpClient client = new HttpClient())
             {
                 string pro = JsonConvert.SerializeObject(c);
@@ -39,7 +37,6 @@ namespace ExchangeRateBLL
         }
         public Boolean updateCurrency(Currency c)
         {
-            uri = "http://localhost:57770/api/currency/";
             using (HttpClient client = new HttpClient())
             {
                 string pro = JsonConvert.SerializeObject(c);
@@ -50,10 +47,9 @@ namespace ExchangeRateBLL
         }
         public Boolean deleteCurrency(int id)
         {
-            uri = "http://localhost:57770/api/currency/" + id;
             using (HttpClient client = new HttpClient())
             {
-                Task<HttpResponseMessage> response = client.DeleteAsync(uri);
+                Task<HttpResponseMessage> response = client.DeleteAsync(uri+id);
                 return response.Result.IsSuccessStatusCode;
             }
         }

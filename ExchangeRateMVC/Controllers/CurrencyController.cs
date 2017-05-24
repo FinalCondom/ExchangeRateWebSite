@@ -15,22 +15,60 @@ namespace ExchangeRateMVC.Controllers
         {
             AccessWebAPI access = new AccessWebAPI();
 
-            Currency test = new Currency();
-
-            access.deleteCurrency(1);
-
+            Currency temp = access.getCurrencies().FirstOrDefault();
+            temp.Name = "PROUT";
+            access.updateCurrency(temp);
             return View(access.getCurrencies());
         }
         //POST: Currency
 
-        //[HttpPost]
-        //public ActionResult Add(Currency c)
-        //{
-        //    AccessWebAPI access = new AccessWebAPI();
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-        //    access.insertCurrency(c);
+        [HttpPost]
+        public ActionResult Create (Currency c)
+        {
+            if (ModelState.IsValid)
+            {
+                AccessWebAPI access = new AccessWebAPI();
 
-        //    return View(access.getCurrencies());
-        //}
+                access.insertCurrency(c);
+
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        //PUT : Currency
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            AccessWebAPI access = new AccessWebAPI();
+            Currency currency = access.getCurrencies().FirstOrDefault(m=>m.Id==id);
+            return View(currency);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Currency c)
+        {
+            if (ModelState.IsValid)
+            {
+                AccessWebAPI access = new AccessWebAPI();
+
+                access.updateCurrency(c);
+
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        //Delete Request
+        public ActionResult Delete(int id)
+        {
+            AccessWebAPI access = new AccessWebAPI();
+            access.deleteCurrency(id);
+            return RedirectToAction("Index");
+        }
     }
 }
