@@ -14,10 +14,8 @@ namespace ExchangeRateMVC.Controllers
         public ActionResult Index()
         {
             AccessWebAPI access = new AccessWebAPI();
+            
 
-            Currency temp = access.getCurrencies().FirstOrDefault();
-            temp.Name = "PROUT";
-            access.updateCurrency(temp);
             return View(access.getCurrencies());
         }
         //POST: Currency
@@ -58,7 +56,7 @@ namespace ExchangeRateMVC.Controllers
                 AccessWebAPI access = new AccessWebAPI();
 
                 access.updateCurrency(c);
-
+                
                 return RedirectToAction("Index");
             }
             return View();

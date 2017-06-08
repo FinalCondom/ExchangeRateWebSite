@@ -41,7 +41,7 @@ namespace ExchangeRateBLL
             {
                 string pro = JsonConvert.SerializeObject(c);
                 StringContent frame = new StringContent(pro, Encoding.UTF8, "Application/json");
-                Task<HttpResponseMessage> response = client.PutAsync(uri, frame);
+                Task<HttpResponseMessage> response = client.PutAsync(uri+"/"+c.Id, frame);
                 return response.Result.IsSuccessStatusCode;
             }
         }

@@ -11,6 +11,7 @@ namespace ExchangeRateDTO
     {
         public int Id { get; set; }
         [Required]
+        [StringLength(3)]
         public String Name { get; set; }
         [Required]
         public String Statut { get; set; }

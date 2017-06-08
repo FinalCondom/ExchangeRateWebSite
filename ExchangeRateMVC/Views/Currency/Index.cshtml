@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>List</h2>
-
+<h2>List of known currencies</h2>
+ <h3>These rates are based on the Swiss Francs (CHF)</h3>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add new currency", "Create")
 </p>
 <table class="table">
     <tr>
@@ -25,14 +25,37 @@
 
 @foreach (var item in Model) {
     <tr>
+
         <td>
+
+            @{ 
+
+                string imageSource = "http://x-rates.com/themes/x-rates/images/flags/" + item.Name.ToString().ToLower() + ".png";
+              
+            }
+            
+            <img src=@imageSource alt="@item.Name"/>
             @Html.DisplayFor(modelItem => item.Name)
+            
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Value)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Statut)
+            @if (item.Statut.Equals("Increasing"))
+            {
+                <img width="3%" height="3%" src="~/Image/rising.png" alt="rising" />
+            }
+            else if (item.Statut.Equals("Decreasing"))
+            {
+                <img width="3%" height="3%" src="~/Image/dropping.png" alt="rising" />
+            }
+            else if (item.Statut.Equals("Stable"))
+            {
+                <img width="3%" height="3%" src="~/Image/stable.png" alt="rising" />
+            }
+
+
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

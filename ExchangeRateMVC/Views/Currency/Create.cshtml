@@ -35,7 +35,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Statut, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Statut, new { htmlAttributes = new { @class = "form-control" } })
+                @{ 
+                    List<String> state = new List<string> { "Increasing", "Decreasing", "Stable" };
+                }
+                @Html.DropDownListFor(model=>Model.Statut, new SelectList(state), "--Choose state--")
+                @*@Html.EditorFor(model => model.Statut, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Statut, "", new { @class = "text-danger" })
             </div>
         </div>
