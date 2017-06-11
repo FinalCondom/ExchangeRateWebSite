@@ -4,14 +4,19 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<style>
+    @@font-face{
+    font-family:'digital-clock-font';
+src:url('../../Font-Familly/digital-7.ttf')
+    }
+</style>
 <body>
 <h2>List of known currencies</h2>
  <h3>These rates are based on the Swiss Francs (CHF)</h3>
 <p>
     @Html.ActionLink("Add new currency", "Create")
 </p>
-<table class="table">
+<table class="table ">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -40,7 +45,7 @@
             @Html.DisplayFor(modelItem => item.Name).ToString().ToUpper()
             
         </td>
-        <td >
+        <td style=" font-family:digital-clock-font;font-size:20px">
             @Html.DisplayFor(modelItem => item.Value)
         </td>
         <td>
