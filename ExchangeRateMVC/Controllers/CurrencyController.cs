@@ -29,9 +29,21 @@ namespace ExchangeRateMVC.Controllers
         [HttpPost]
         public ActionResult Create (Currency c)
         {
+
+
             if (ModelState.IsValid)
             {
                 AccessWebAPI access = new AccessWebAPI();
+                List<Currency>currencies= access.getCurrencies();
+                foreach(Currency curr in currencies)
+                {
+                    if (c.Name.Equals(curr.Name))
+                    {
+                      
+                        ModelState.AddModelError("Name","Currency already exist, might want to update instead");
+                        return View(c);
+                    }
+                }
 
                 access.insertCurrency(c);
 

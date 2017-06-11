@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<ExchangeRateDTO.Currency>
 
+
 @{
     ViewBag.Title = "Index";
 }
 
+<body>
 <h2>List of known currencies</h2>
  <h3>These rates are based on the Swiss Francs (CHF)</h3>
 <p>
@@ -35,10 +37,10 @@
             }
             
             <img src=@imageSource alt="@item.Name"/>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.Name).ToString().ToUpper()
             
         </td>
-        <td>
+        <td >
             @Html.DisplayFor(modelItem => item.Value)
         </td>
         <td>
@@ -58,10 +60,11 @@
 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Update", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
 
 </table>
+    </body>
